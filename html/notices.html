@@ -209,12 +209,20 @@
       tbody.innerHTML = inputHTML;
     }
 
-    changePage(1);
-
     function openNotice(no) {
       localStorage.setItem('noticeID', no);
       location.href = 'http://127.0.0.1:5500/html/notice.html';
     }
+
+    changePage(1);
+
+    const lis = document.querySelectorAll('#headMenu li');
+    lis[0].addEventListener('click', () => {
+      location.href = 'http://127.0.0.1:5500/html/notices.html';
+    });
+    lis[1].addEventListener('click', () => {
+      location.href = 'http://127.0.0.1:5500/html/login.html';
+    });
 
   </script>
 </body>
