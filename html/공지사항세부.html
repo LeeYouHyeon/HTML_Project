@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 1920px;
+    }
+
+    .container {
+      width: 1200px;
+    }
+
+    .container>.title {
+      margin-top: 50px;
+      display: flex;
+      align-items: center;
+      font-size: 30px;
+      font-weight: 600;
+    }
+
+    .container>.title>img {
+      margin-right: 14px;
+    }
+
+    .container>.notice {
+      width: 100%;
+      margin-top: 20px;
+      border-top: 1px solid black;
+    }
+
+    .container>.notice>div {
+      width: 100%;
+      display: flex;
+    }
+
+    .name,
+    .box {
+      padding: 10px;
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    .name {
+      justify-content: center;
+      font-weight: 600;
+    }
+
+    .container>.notice>div>.name {
+      width: 135px;
+      background-image: url(../image/table_bg.gif);
+    }
+
+    .container>.notice>div>.box {
+      width: calc(100% - 135px);
+    }
+
+    .container>.notice>.detail>.box {
+      width: calc((100% - 135px * 3) / 4);
+    }
+
+    .container>.notice>.detail>.date.box {
+      width: calc((100% - 135px * 3) / 2);
+    }
+
+    button {
+      float: right;
+      background-color: rgb(95, 95, 95);
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-size: 18px;
+      padding: 8px 34px;
+      margin-top: 40px;
+    }
+
+    .container>.notice>.content {
+      display: flex;
+      flex-direction: column;
+      margin-top: 10px;
+    }
+
+    .container>.notice>.content>p {
+      margin: 15px 0 0 20px;
+    }
+
+    .file {
+      margin-top: 20px;
+      border-top: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    .clickable:hover{
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header"></div>
+  <div class="container">
+    <div class="title"><img src="../image/공지사항 아이콘.jpg" alt="">공지사항</div>
+    <div class="notice">
+      <div class="title">
+        <div class="name">제목</div>
+        <div class="box">asdf</div>
+      </div>
+      <div class="detail">
+        <div class="date name">등록일</div>
+        <div class="date box">asdf</div>
+        <div class="writer name">작성자</div>
+        <div class="writer box">관리자</div>
+        <div class="view name">조회수</div>
+        <div class="view box">asdf</div>
+      </div>
+      <div class="content"></div>
+      <div class="file">
+        <div class="name">첨부파일</div>
+        <div class="box"></div>
+      </div>
+      <div class="before">
+        <div class="name">이전</div>
+        <div class="box"></div>
+      </div>
+      <div class="next">
+        <div class="name">다음</div>
+        <div class="box"></div>
+      </div>
+
+      <button type="button" id="toList" class="clickable">목록</button>
+    </div>
+  </div>
+  <script>
+    const notice1 = {
+      title: '[안내] My통계 복수인증 수단 도입',
+      content: [
+        'My통계 개인정보보호 및 서비스 장애 사전 방지를 위하여 복수인증 수단이 도입되어 안내드립니다.',
+        '----------------------------------------------------------------------------------------------------',
+        '▶ 목적 :  My통계 개인정보보호 및 서비스 장애 사전 방지',
+        '▶ 개선사항 : 복수인증 수단 도입',
+        '1) 회원가입 : 기관(업체) 담당자 정보 복수 인증',
+        '2) 담당자 변경 : 변경될 담당자의 정보 복수 인증',
+        '▶ 시행일자 : 2025. 1. 3.(금)(예정)',
+        '----------------------------------------------------------------------------------------------------',
+        '공연예술통합전산망을 이용해주셔서 감사드립니다.',
+        '더 나은 공연예술통합전산망 서비스가 될 수 있도록 노력하겠습니다.'],
+      before: undefined,
+      after: '[안내] KOPIS 데이터 수집 관리 방법 안내'
+    };
+    const notice2 = {
+      title: '[안내] KOPIS 데이터 수집 관리 방법 안내',
+      content: 'Image',
+      image: '../image/공지사항2_포스터.jpg',
+      before: notice1.title,
+      after: '[안내] KOPIS 오픈API 개선 안내'
+    };
+
+    if (localStorage.getItem('noticeID') == 41) {
+      printNotice(notice1);
+    } else printNotice(notice2);
+
+    function printNotice(notice) {
+      const boxes = document.querySelectorAll('.box');
+      boxes[0].innerHTML = notice.title;
+      boxes[1].innerHTML = new Date().toLocaleDateString();
+      boxes[3].innerHTML = Math.floor(Math.random() * 20000) + 1;
+      const content = document.querySelector('.content')
+      if (notice.content == 'Image') {
+        content.innerHTML = `<img src="${notice.image}">`;
+      } else {
+        let input = '';
+        for (const line of notice.content) {
+          input += `<p>${line}</p>`;
+        }
+        content.innerHTML = input;
+      }
+      boxes[4].innerHTML = '';
+
+      const now = localStorage.getItem('noticeID');
+      if (notice.before == null) {
+        boxes[5].innerHTML = '이전 글이 없습니다.';
+      } else {
+        boxes[5].innerHTML = notice.before;
+        boxes[5].addEventListener('click', () => {
+          localStorage.setItem('noticeID', 41);
+          location.reload();
+        });
+        boxes[5].classList.add('clickable');
+      }
+      if (notice.after == null) {
+        boxes[6].innerHTML = '다음 글이 없습니다.';
+      } else {
+        boxes[6].innerHTML = notice.after;
+        boxes[6].addEventListener('click', () => {
+          if (now == 41) localStorage.setItem('noticeID', 40);
+          location.reload();
+        });
+        boxes[6].classList.add('clickable');
+      }
+    }
+
+    document.getElementById('toList').addEventListener('click', () => {
+      location.href = 'http://127.0.0.1:5500/Project/html/공지사항목록.html';
+    })
+
+  </script>
+</body>
+
+</html>

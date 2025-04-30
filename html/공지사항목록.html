@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 1920px;
+    }
+
+    .container {
+      width: 1200px;
+    }
+
+    .container>.title {
+      margin-top: 50px;
+      display: flex;
+      align-items: center;
+      font-size: 30px;
+      font-weight: 600;
+    }
+
+    .container>.title>img {
+      margin-right: 14px;
+    }
+
+    .container>table {
+      margin-top: 50px;
+      width: 100%;
+      font-size: 14px;
+    }
+
+    .container>table>thead {
+      background-image: url(../image/table_bg.gif);
+      height: 33px;
+    }
+
+    .container>table>thead>tr>th {
+      border-top: 1px solid black;
+      border-left: 1px solid rgb(244, 244, 244);
+    }
+
+    .container>table>tbody>tr>td{
+      text-align: center;
+      padding: 5px;
+    }
+    
+    .container>table>tbody>tr>td:first-child{
+      text-align: right;
+    }
+
+    .container>table>tbody>tr>td:nth-child(2){
+      text-align: left;
+    }
+    .container>table>tbody>tr>td:nth-of-type(2):hover {
+      cursor: pointer;
+    }
+
+    .container>table td{
+      border-left: 1px solid rgb(222, 222, 222);
+      border-bottom: 1px solid rgb(222, 222, 222);
+      height: 24px;
+    }
+    .container>table tr:nth-child(even){
+      background-color: rgb(244, 244, 244);
+    }
+
+    .container>.pageBtns{
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .container>.pageBtns>button{
+      padding: 10px 16px;
+      background-color: transparent;
+      font-size: 16px;
+      border: none;
+      border-radius: 100%;
+      margin: 0 10px;
+    }
+    .container>.pageBtns>button:hover {
+      cursor: pointer;
+    }
+
+    .container>.pageBtns>button:disabled{
+      color: white;
+      cursor: default;
+      background-color: coral;
+    }
+
+    .container>.pageBtns>.borderBtn{
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    
+  </style>
+</head>
+
+<body>
+  <div class="header"></div>
+  <div class="container">
+    <div class="title"><img src="../image/공지사항 아이콘.jpg" alt="">공지사항</div>
+    <table>
+      <thead>
+        <tr>
+          <th width="6%">번호</th>
+          <th width="auto">제목</th>
+          <th width="12%">작성자</th>
+          <th width="14%">등록일</th>
+          <th width="10%">조회수</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <div class="pageBtns">
+      <button type="button" class="borderBtn" onclick="changePage(1)">《</button>
+      <button type="button" id="page1" onclick="changePage(1)">1</button>
+      <button type="button" id="page2" onclick="changePage(2)">2</button>
+      <button type="button" id="page3" onclick="changePage(3)">3</button>
+      <button type="button" class="borderBtn" onclick="changePage(3)">》</button>
+    </div>
+  </div>
+
+  <script>
+    const page1 = `[안내] My통계 복수인증 수단 도입
+[안내] KOPIS 데이터 수집 관리 방법 안내
+[안내] KOPIS 오픈API 개선 안내
+[안내] 2024 12월 공연예술 데이터 포럼(KODaF) 사전신청 접수 안내(~12/15(일))
+[안내] 공연예술통합전산망 이용자 만족도 조사 안내
+[안내] KOPIS 오픈API afterdate 변수 추가 및 24. 12월 향후 개선계획 안내
+[안내] IDC 네트워크 장비 교체 및 버전 업그레이드 작업으로 인한 서비스 중단 안내
+[안내] KOPIS 오픈API newsql(신규API) 변수 제외
+[안내] <2024 공연예술조사> 실시 안내 및 협조 요청
+[안내] <2024 공연예술 유통> 공모사업 일환, 공연예술 데이터 수집·관리 교육 운영 ...
+[안내] 2024 제 4회 KOPIS 빅데이터 공모전 서류심사 선정결과 안내
+[안내] 공연예술통합전산망 메인페이지 공연뉴스 일시중단 안내
+[안내] 공연예술통합전산망 공연통계>결산통계 개편 안내
+[시스템 점검] 공연예술통합전산망 시스템 점검 및 개선으로 인한 일시중단 안내
+[안내] 제 4회 KOPIS 빅데이터 공모전 공모 안내(~7.11(목)) / *접수기간 연장없음
+[안내] 2024 공연예술 데이터 포럼(KODaF) 개최 안내
+[안내] 제 4회 KOPIS 빅데이터 공모전 <온라인 사전설명회> 개최 안내
+[안내] KOPIS 오픈API 제공데이터 추가
+[안내] KOPIS 오픈API 제공데이터 추가 안내
+[시스템 장애] IDC FI스위치 불량에 따른 서비스 장애 안내(복구완료)`.split('\n').map(e => e.trim());
+    const page2 = `[시스템 점검] IDC 신규 NAS 이관 작업으로 인한 서비스 중단 안내
+[안내] 공연예술통합전산망 23년 결산 및 24년 서비스 개선 계획 안내
+[안내] 2023년 공연시장 데이터 결산을 위한 유입데이터 마감 일정 안내
+[안내] KOPIS 오픈API 제공데이터 2차(예매통계 신설 등) 변경
+[안내] 2023 12월 공연예술 데이터 포럼(KODaF) 사전신청 접수 안내
+[안내] KOPIS 오픈API 제공데이터 1차(예매상황판 제공 기준) 변경
+[안내] 서울아트마켓(PAMS) 연계 공연예술 데이터 포럼(KODaF) 사전신청 접수 안내
+[안내] KOPIS 오픈API 제공데이터 1차 변경 안내
+[시스템 점검] 공연예술통합전산망 예매상황판 개선작업으로 인한 일시 중단 안내
+[시스템 점검] 공연예술통합전산망 누리집 데이터 점검 안내
+[안내] 2023 공연예술 데이터 포럼 개최 및 접수 안내
+[안내] 2023 제 3회 KOPIS 빅데이터 공모전 서류심사 선정결과 안내
+[안내] KOPIS OPEN API 관련 강원도 -> 강원특별자치도 코드 변경 안내
+[안내] 공연예술통합전산망 누리집 개편 안내
+[안내] K-뮤지컬국제마켓 연계 공연예술 데이터 포럼 개최 안내(6.28.(수) 11시)
+[안내] Power BI를 통한 데이터 시각화 실습과정(기초 3차) 교육 수강생 모집
+[안내] 공연예술통합전산망 개선을 위한 이용자 만족도 조사 시행
+[안내] Excel을 통한 통계분석 실습과정(기초 2차) 교육 수강생 모집
+[안내] Power BI를 통한 데이터 시각화 실습과정(기초 2차) 교육 수강생 모집
+[안내] Excel을 통한 통계분석 실습과정(기초 2차) 교육 수강생 모집`.split('\n').map(e => e.trim());
+    const page3 = ['[안내] 제 3회 KOPIS 빅데이터 공모전 접수기간 연장 안내(~7/14(금) 16시)'];
+    const pages = [undefined, page1, page2, page3];
+    const counts = [undefined, 41, 21, 1];
+    const tbody = document.querySelector('tbody');
+    const today = new Date().toLocaleDateString();
+    let page = 1;
+
+    function changePage(newPage) {
+      document.getElementById(`page${page}`).disabled = false;
+      page = newPage;
+      document.getElementById(`page${page}`).disabled = true;
+
+      let i = 0, inputHTML = '';
+      for (const title of pages[page]) {
+        inputHTML += '<tr>';
+        inputHTML += `<td>${counts[page] - i}</td>`;
+        inputHTML += `<td onclick="openNotice(${counts[page] - i})">${pages[page][i]}</td>`;
+        inputHTML += `<td>관리자</td>`;
+        inputHTML += `<td>${today}</td>`;
+        inputHTML += `<td>${Math.floor(Math.random() * 20000) + 1}</td>`;
+        inputHTML += '</tr>';
+        i++;
+      }
+      tbody.innerHTML = inputHTML;
+    }
+
+    changePage(1);
+
+    function openNotice(no) {
+      localStorage.setItem('noticeID', no);
+      location.href = 'http://127.0.0.1:5500/Project/html/%EA%B3%B5%EC%A7%80%EC%82%AC%ED%95%AD%EC%84%B8%EB%B6%80.html';
+    }
+
+  </script>
+</body>
+
+</html>
