@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비밀번호 찾기</title>
+    <style>
+        body{
+            background: linear-gradient(rgba(0, 0, 0, 0.548), rgba(0, 0, 0, 0.511)), url(../image/배경.png);
+        }
+        *{padding: 0%; margin: 0%;}
+        form{
+            width: 340px;
+            margin: 0 auto;
+            transform: translate(1%, 50%);
+            padding: 20px;
+            border: 1px solid white;
+            border-radius: 5px;
+            background-color: hsla(221, 79%, 13%, 0.363);
+            background-image: none;
+        }
+        legend{
+            font-size: 16px;
+            font-weight: bold;
+            padding-left: 5px;
+            padding-bottom: 10px;
+            color: white;
+        }
+        #loginbox label{
+            float: left; 
+            width: 120px; 
+            font-size: 15px; 
+            margin-left: 20px;
+            color: white;
+        }
+        li{
+            list-style-type: none; 
+            margin-bottom: 10px;
+        }
+          
+        fieldset{
+            border: 1px solid #ccc;
+            margin-bottom: 30px;
+            padding: 10px;
+            outline: none;
+            border-radius: 10px;
+        }
+
+        #joinbox{
+            text-align: center;
+            border: none;
+            padding: 10px;
+        }
+        #joinbox button{
+            font-size: 15px;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid black;
+        }
+        #joinbox button:hover{
+            background-color: white;
+        }
+
+
+    </style>
+</head>
+<body>
+    <form id="login">
+        <fieldset id="loginbox">
+            <legend>비밀번호 찾기</legend>
+            <ul>
+                <li>
+                    <label for="user-id">아이디</label>
+                    <input id="user-id" type="text" placeholder="공백없이 2자 이상" autofocus required>
+                </li>
+                <li>
+                    <label for="user-email">이메일</label>
+                    <input id="user-email" type="email" placeholder="abc@naver.com" autocomplete="off" required>
+                </li>
+                <li>
+                    <label for="user-tel">전화번호</label>
+                    <input id="user-tel" type="tel">
+                </li>
+                <li>
+                    <label for="user-us">주민등록번호
+                    <input id="user-us" type="us" name="personal1" class="personalNo-1" placeholder="주민번호 앞 6자리">
+                    <br>
+                    <input type="text" maxlength="1" placeholder="주민번호 뒷 1자리">
+                    </label>
+                </li>
+            </ul>
+        </fieldset>
+
+        <fieldset id="joinbox">
+            <button type="submit">비밀번호 찾기</button>
+        </fieldset>
+    </form>
+</body>
+</html>

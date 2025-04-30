@@ -1,0 +1,20 @@
+#headWrapper{
+  margin-bottom: 30px;
+
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+#headWrapper>div{
+  margin-top: 20px;
+}
+
+#headWrapper li{
+  display: inline-block;
+  padding-right : 40px;
+}
+
+#headWrapper li:last-child{
+  padding-right : 0px;
+}

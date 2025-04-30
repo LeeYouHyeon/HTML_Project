@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-
+  
   <style>
     body {
       display: flex;
@@ -101,10 +101,23 @@
 
     
   </style>
+  <link rel="stylesheet" href="../css/head.css">
 </head>
 
 <body>
-  <div class="header"></div>
+  <head>
+    <div id = "headWrapper">
+      <div id = "logo">
+        로고
+      </div>
+      <div id = "headMenu">
+        <ul>
+          <li>공지사항</li>
+          <li>로그인</li>
+        </ul>
+      </div>
+    </div>
+  </head>
   <div class="container">
     <div class="title"><img src="../image/공지사항 아이콘.jpg" alt="">공지사항</div>
     <table>
@@ -200,7 +213,7 @@
 
     function openNotice(no) {
       localStorage.setItem('noticeID', no);
-      location.href = 'http://127.0.0.1:5500/Project/html/%EA%B3%B5%EC%A7%80%EC%82%AC%ED%95%AD%EC%84%B8%EB%B6%80.html';
+      location.href = 'http://127.0.0.1:5500/html/notice.html';
     }
 
   </script>

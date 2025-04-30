@@ -105,7 +105,19 @@
 </head>
 
 <body>
-  <div class="header"></div>
+  <head>
+    <div id = "headWrapper">
+      <div id = "logo">
+        로고
+      </div>
+      <div id = "headMenu">
+        <ul>
+          <li>공지사항</li>
+          <li>로그인</li>
+        </ul>
+      </div>
+    </div>
+  </head>
   <div class="container">
     <div class="title"><img src="../image/공지사항 아이콘.jpg" alt="">공지사항</div>
     <div class="notice">
@@ -208,7 +220,7 @@
     }
 
     document.getElementById('toList').addEventListener('click', () => {
-      location.href = 'http://127.0.0.1:5500/Project/html/공지사항목록.html';
+      location.href = 'http://127.0.0.1:5500/html/notices.html';
     })
 
   </script>

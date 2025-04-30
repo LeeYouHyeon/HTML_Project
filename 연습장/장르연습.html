@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .container{
+      display: flex;
+      justify-content: center;
+    }
+    .container p{
+      margin: 0;
+      padding: 0;
+    }
+    .container p:last-of-type{
+      font-size: 12px;
+    }
+    .container>div{
+      display: flex;
+      flex-direction: column;
+      width: 100px;
+      height: 60px;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid black;
+      border-right: none;
+    }
+    .container>div:hover{
+      cursor: pointer;
+    }
+    .container>div:last-of-type{
+      border-right: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="div genre" id="all">전체</div>
+    <div class="div genre" id="AAAA">연극</div>
+    <div class="div genre" id="GGGA">뮤지컬</div>
+    <div class="div genre" id="CCCA"><p>서양음악</p><p>(클래식)</p></div>
+    <div class="div genre" id="CCCC"><p>한국음악</p><p>국악</p></div>
+    <div class="div genre" id="CCCD">대중음악</div>
+    <div class="div genre" id="BBBC"><p>무용</p><p>(서양/한국무용)</p></div>
+    <div class="div genre" id="BBBE">대중무용</div>
+    <div class="div genre" id="EEEB">서커스/마술</div>
+    <div class="div genre" id="EEEA">복합</div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.genre').forEach(e => {
+      e.addEventListener('click', key => {
+        console.log(key.target.id);
+      });
+    });
+  </script>
+</body>
+</html>
