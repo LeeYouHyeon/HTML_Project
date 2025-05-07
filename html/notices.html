@@ -5,7 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  
+
+  <link rel="stylesheet" href="../css/reset.css">
   <style>
     body {
       display: flex;
@@ -44,40 +45,44 @@
     .container>table>thead>tr>th {
       border-top: 1px solid black;
       border-left: 1px solid rgb(244, 244, 244);
+      line-height: 30px;
     }
 
-    .container>table>tbody>tr>td{
+    .container>table>tbody>tr>td {
       text-align: center;
       padding: 5px;
+      line-height: 22px;
     }
-    
-    .container>table>tbody>tr>td:first-child{
+
+    .container>table>tbody>tr>td:first-child {
       text-align: right;
     }
 
-    .container>table>tbody>tr>td:nth-child(2){
+    .container>table>tbody>tr>td:nth-child(2) {
       text-align: left;
     }
+
     .container>table>tbody>tr>td:nth-of-type(2):hover {
       cursor: pointer;
     }
 
-    .container>table td{
+    .container>table td {
       border-left: 1px solid rgb(222, 222, 222);
       border-bottom: 1px solid rgb(222, 222, 222);
       height: 24px;
     }
-    .container>table tr:nth-child(even){
+
+    .container>table tr:nth-child(even) {
       background-color: rgb(244, 244, 244);
     }
 
-    .container>.pageBtns{
+    .container>.pageBtns {
       display: flex;
       justify-content: center;
       margin-top: 30px;
     }
 
-    .container>.pageBtns>button{
+    .container>.pageBtns>button {
       padding: 10px 16px;
       background-color: transparent;
       font-size: 16px;
@@ -85,39 +90,38 @@
       border-radius: 100%;
       margin: 0 10px;
     }
+
     .container>.pageBtns>button:hover {
       cursor: pointer;
     }
 
-    .container>.pageBtns>button:disabled{
+    .container>.pageBtns>button:disabled {
       color: white;
       cursor: default;
       background-color: coral;
     }
 
-    .container>.pageBtns>.borderBtn{
+    .container>.pageBtns>.borderBtn {
       border: 1px solid rgba(0, 0, 0, 0.1);
     }
-
-    
   </style>
   <link rel="stylesheet" href="../css/head.css">
 </head>
 
 <body>
-  <head>
-    <div id = "headWrapper">
-      <div id = "logo">
-        로고
+  <header>
+    <div id="headWrapper">
+      <div id="logo" class="hoverable">
       </div>
-      <div id = "headMenu">
+      <div id="headMenu">
         <ul>
-          <li>공지사항</li>
-          <li>로그인</li>
+          <li class="hoverable" onclick="toNotices()">공지사항</li>
+          <li></li>
         </ul>
       </div>
     </div>
-  </head>
+  </header>
+
   <div class="container">
     <div class="title"><img src="../image/공지사항 아이콘.jpg" alt="">공지사항</div>
     <table>
@@ -142,6 +146,7 @@
     </div>
   </div>
 
+  <script src="../js/head.js"></script>
   <script>
     const page1 = `[안내] My통계 복수인증 수단 도입
 [안내] KOPIS 데이터 수집 관리 방법 안내
@@ -215,15 +220,6 @@
     }
 
     changePage(1);
-
-    const lis = document.querySelectorAll('#headMenu li');
-    lis[0].addEventListener('click', () => {
-      location.href = 'http://127.0.0.1:5500/html/notices.html';
-    });
-    lis[1].addEventListener('click', () => {
-      location.href = 'http://127.0.0.1:5500/html/login.html';
-    });
-
   </script>
 </body>
 

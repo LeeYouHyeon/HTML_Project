@@ -1,3 +1,4 @@
+// xml 을 JSON 으로 변환
 function xmlToJson(xml) {
   // node 타입별 처리
   let obj = {};
@@ -6,6 +7,8 @@ function xmlToJson(xml) {
   if (xml.nodeType === 1) { 
     // 속성 처리
     if (xml.attributes.length > 0) {
+      // obj라는 JS 객체 안에 @attributes라는 키를 만들고 
+      // XML 요소의 속성 (Attribute) 목록을 담는 용도로 @attributes 사용 
       obj["@attributes"] = {};
       for (let j = 0; j < xml.attributes.length; j++) {
         const attribute = xml.attributes.item(j);

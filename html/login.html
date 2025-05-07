@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로그인</title>
     <style>
-        body{
-            background: linear-gradient(rgba(0, 0, 0, 0.548), rgba(0, 0, 0, 0.511)), url(../image/main1.png);
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.548), rgba(0, 0, 0, 0.511)), url(../image/image.png);
         }
-        .container{
+
+        .login-image {
+            width: 290px;
+            height: 80px;
+            display: block;
+            margin: 0 auto;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+
+        .container {
             width: 300px;
             position: absolute;
             top: 50%;
@@ -19,7 +30,9 @@
             border-radius: 10px;
             padding: 20px 30px;
         }
-        .text-field, .btn{
+
+        .text-field,
+        .btn {
             width: 100%;
             padding: 10px;
             font-size: 15px;
@@ -29,29 +42,36 @@
             outline: none;
             border-radius: 20px;
         }
-        .btn{
-            background-color:  rgb(1, 27, 86);
+
+        .btn {
+            background-color: rgb(1, 27, 86);
             color: white;
             font-weight: 700;
             cursor: pointer;
         }
-        .link{
+
+        .link {
             margin-top: 10px;
-            
         }
-        .link>a{
+
+        .link>a {
             color: rgb(255, 255, 255);
             text-decoration: none;
             font-size: 13px;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
+
+        <!-- <img src="../image/LiveStage-3.jpg" class="login-image"> -->
+        <img src="../image/LiveStage-2.jpg" class="login-image">
+
         <form action="">
             <input type="text" class="text-field" name="id" placeholder="아이디">
             <input type="password" class="text-field" name="pw" placeholder="비밀번호">
-            <input type="submit" class="btn" value="로그인" disabled>
+            <input type="button" class="btn" value="로그인">
         </form>
         <div class="link">
             <a href="log.html">회원가입</a>
@@ -59,36 +79,21 @@
             <a href="pws.html">비밀번호 찾기</a>
         </div>
     </div>
-    
+
     <script>
-        const regExp = new RegExp(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*].{8,}$/);
-        const input = document.querySelectorAll(".text-field");
-        const btn = document.querySelector(".btn");
-        console.log(input);
-        console.log(btn);
-        input[0].addEventListener('input',()=>{
-            if(regExp.test(input[1].value)){
-                if(input[0].value.length > 7){
-                    btn.style.setProperty('background-color','rgb(72, 235, 129)');
-                    btn.disabled = false;
-                }else{
-                    btn.style.setProperty('background-color','rgb(148, 153, 150)');
-                    btn.disabled = true;
-                }
+        // 로그인. 회원 DB가 없어 admin, 123456*(관리자)만 가능
+        document.querySelector('.btn').onclick = () => {
+            const inputs = document.querySelectorAll('input');
+            if (inputs[0].value == 'admin' && inputs[1].value == '123456*') {
+                localStorage.setItem('user', 'admin');
+                history.back();
+            } else {
+                alert('로그인에 실패했습니다.');
+                inputs[0].value = '';
+                inputs[1].value = '';
             }
-        });
-        input[1].addEventListener('input',()=>{
-            console.log(regExp.test(input[1].value));
-            if(input[0].value.length > 7){
-                if(regExp.test(input[1].value)){
-                    btn.style.setProperty('background-color','rgb(72, 235, 129)');
-                    btn.disabled = false;
-                }else{
-                    btn.style.setProperty('background-color','rgb(148, 153, 150)');
-                    btn.disabled = true;
-                }
-            }
-        });
+        }
     </script>
 </body>
+
 </html>

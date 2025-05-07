@@ -1,0 +1,247 @@
+<!-- 공연 목록 출력 페이지 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/pList.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="../css/head.css">
+    <!-- 현재 카테고리 확인 -->
+    <style>
+        .invisible {
+            display: none;
+        }
+    </style>
+
+    <title>Main</title>
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- swiper -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <div id="headWrapper">
+            <div id="logo" class="hoverable">
+            </div>
+            <div id="headMenu">
+                <ul>
+                    <li class="hoverable" onclick="toNotices()">공지사항</li>
+                    <li></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- section 1 -->
+        <section>
+            <article>
+                <div id="banner">
+                    <div class="banner_swiper">
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <a href="#">
+                                        <div class="img_wrapper">
+                                            <img src="../image/swiper-img1.jpg" alt="배너 이미지">
+                                        </div>
+                                        <div class="txt_wrapper">
+                                            <p>첼로 솔로 콘서트</p>
+                                            <span>격주 (금) 13:00</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide">
+                                    <a href="#">
+                                        <div class="img_wrapper">
+                                            <img src="../image/swiper-img2.jpg" alt="배너 이미지">
+                                        </div>
+                                        <div class="txt_wrapper">
+                                            <p>전주 국제 영화제 X music</p>
+                                            <span>05.02(금) ~ 05.06(화)</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide">
+                                    <a href="#">
+                                        <div class="img_wrapper">
+                                            <img src="../image/swiper-img3.jpg" alt="배너 이미지">
+                                        </div>
+                                        <div class="txt_wrapper">
+                                            <p>뮤지컬 동화열차 금도끼 은도끼</p>
+                                            <span>격주 (금) 13:00</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide">
+                                    <a href="#">
+                                        <div class="img_wrapper">
+                                            <img src="../image/swiper-img1.jpg" alt="배너 이미지">
+                                        </div>
+                                        <div class="txt_wrapper">
+                                            <p>첼로 솔로 콘서트</p>
+                                            <span>격주 (금) 13:00</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide">
+                                    <a href="#">
+                                        <div class="img_wrapper">
+                                            <img src="../image/swiper-img4.jpg" alt="배너 이미지">
+                                        </div>
+                                        <div class="txt_wrapper">
+                                            <p>영 아티스트 시리즈</p>
+                                            <span>05.04(일) ~ 05.27(화)</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide">
+                                    <a href="#">
+                                        <div class="img_wrapper">
+                                            <img src="../image/swiper-img5.jpg" alt="배너 이미지">
+                                        </div>
+                                        <div class="txt_wrapper">
+                                            <p>엄마</p>
+                                            <span>05.02(금) ~ 05.31(토)</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide">
+                                    <a href="#">
+                                        <div class="img_wrapper">
+                                            <img src="../image/swiper-img6.jpg" alt="배너 이미지">
+                                        </div>
+                                        <div class="txt_wrapper">
+                                            <p>행복</p>
+                                            <span>05.03(토) ~ 06.08(일)</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide">
+                                    <a href="#">
+                                        <div class="img_wrapper">
+                                            <img src="../image/swiper-img7.jpg" alt="배너 이미지">
+                                        </div>
+                                        <div class="txt_wrapper">
+                                            <p>안녕? 잘 지냈지 안녕!</p>
+                                            <span>격주 (금) 13:00</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide">
+                                    <a href="#">
+                                        <div class="img_wrapper">
+                                            <img src="../image/swiper-img8.jpg" alt="배너 이미지">
+                                        </div>
+                                        <div class="txt_wrapper">
+                                            <p>꿈꾸는 허수아비</p>
+                                            <span>05.01(목) ~ 05.06(화)</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide">
+                                    <a href="#">
+                                        <div class="img_wrapper">
+                                            <img src="../image/swiper-img9.jpg" alt="배너 이미지">
+                                        </div>
+                                        <div class="txt_wrapper">
+                                            <p>어린이 극장장</p>
+                                            <span>05.01() ~ 05.31(토)</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide">
+                                    <a href="#">
+                                        <div class="img_wrapper">
+                                            <img src="../image/swiper-img10.jpg" alt="배너 이미지">
+                                        </div>
+                                        <div class="txt_wrapper">
+                                            <p>기분을 말해봐</p>
+                                            <span>격주 (금) 13:00</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="swiper-prev-btn"></div>
+                            <div class="swiper-next-btn"></div>
+                        </div>
+                    </div>
+            </article>
+        </section>
+        <script>
+            let banner_swiper = new Swiper(".banner_swiper .swiper-container", {
+                slidesPerView: 7.4,
+                spaceBetween: 20,
+                centeredSlides: true,
+                loop: true,
+                speed: 1000,
+                autoplay: {
+                    delay: 2500,
+                    disableOnInteraction: false,
+                },
+                navigation: {
+                    nextEl: ".swiper-next-btn",
+                    prevEl: ".swiper-prev-btn"
+                },
+            });
+        </script>
+
+        <!-- section 2 -->
+        <section>
+            <div class="container">
+                <div class="div genre current" id="all">전체</div>
+                <div class="div genre" id="AAAA">연극</div>
+                <div class="div genre" id="GGGA">뮤지컬</div>
+                <div class="div genre" id="CCCA">
+                    <p class="p CCCA">서양음악</p>
+                    <p class="p CCCA">(클래식)</p>
+                </div>
+                <div class="div genre" id="CCCC">
+                    <p class="p CCCC">한국음악</p>
+                    <p class="p CCCC">(국악)</p>
+                </div>
+                <div class="div genre" id="CCCD">대중음악</div>
+                <div class="div genre" id="BBBC">
+                    <p class="p BBBC">무용</p>
+                    <p class="p BBBC">(서양/한국무용)</p>
+                </div>
+                <div class="div genre" id="BBBE">대중무용</div>
+                <div class="div genre" id="EEEB">서커스/마술</div>
+                <div class="div genre" id="EEEA">복합</div>
+            </div>
+        </section>
+
+        <!-- section 3 -->
+        <section>
+            <div class="infoListWrap" id="listContainer">
+                <div class="noData invisible">데이터가 없습니다.</div>
+                <ul id="infoList">
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div id="moreInfo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                <path
+                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
+            </svg>
+            <p id="moreTxt">더보기</p>
+        </div>
+    </footer>
+
+    <script src="../js/head.js"></script>
+    <script src="../js/xmlToJson.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/colorSet.js"></script>
+    <script src="../js/pList.js"></script>
+</body>
+
+</html>

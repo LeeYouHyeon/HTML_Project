@@ -1,44 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>비밀번호 찾기</title>
     <style>
-        body{
-            background: linear-gradient(rgba(0, 0, 0, 0.548), rgba(0, 0, 0, 0.511)), url(../image/배경.png);
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.548), rgba(0, 0, 0, 0.511)), url(../image/image.png
+);
         }
-        *{padding: 0%; margin: 0%;}
-        form{
+
+        * {
+            padding: 0%;
+            margin: 0%;
+        }
+
+        form {
             width: 340px;
             margin: 0 auto;
-            transform: translate(1%, 50%);
+            transform: translate(1%, 40%);
             padding: 20px;
             border: 1px solid white;
             border-radius: 5px;
             background-color: hsla(221, 79%, 13%, 0.363);
             background-image: none;
         }
-        legend{
+
+        .login-image {
+            width: 350px;
+            height: 80px;
+            display: block;
+            margin: 0 auto;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+
+        legend {
             font-size: 16px;
             font-weight: bold;
             padding-left: 5px;
             padding-bottom: 10px;
             color: white;
         }
-        #loginbox label{
-            float: left; 
-            width: 120px; 
-            font-size: 15px; 
+
+        #loginbox label {
+            float: left;
+            width: 120px;
+            font-size: 15px;
             margin-left: 20px;
             color: white;
         }
-        li{
-            list-style-type: none; 
+
+        li {
+            list-style-type: none;
             margin-bottom: 10px;
         }
-          
-        fieldset{
+
+        fieldset li:last-of-type {
+            display: flex;
+            flex-direction: row;
+            color: white;
+
+            input:first-of-type {
+                width: 102px;
+            }
+
+            input:last-of-type {
+                width: 12px;
+                text-align: center;
+            }
+        }
+
+        fieldset {
             border: 1px solid #ccc;
             margin-bottom: 30px;
             padding: 10px;
@@ -46,26 +80,31 @@
             border-radius: 10px;
         }
 
-        #joinbox{
+        #joinbox {
             text-align: center;
             border: none;
             padding: 10px;
         }
-        #joinbox button{
+
+        #joinbox button {
             font-size: 15px;
             padding: 5px;
             border-radius: 5px;
             border: 1px solid black;
         }
-        #joinbox button:hover{
+
+        #joinbox button:hover {
             background-color: white;
         }
-
-
     </style>
 </head>
+
 <body>
     <form id="login">
+
+        <img src="../image/LiveStage-2.jpg" class="login-image">
+        <!-- <img src="../image/LiveStage-3.jpg" class="login-image"> -->
+
         <fieldset id="loginbox">
             <legend>비밀번호 찾기</legend>
             <ul>
@@ -79,14 +118,12 @@
                 </li>
                 <li>
                     <label for="user-tel">전화번호</label>
-                    <input id="user-tel" type="tel">
+                    <input id="user-tel" type="tel" placeholder="">
                 </li>
                 <li>
-                    <label for="user-us">주민등록번호
-                    <input id="user-us" type="us" name="personal1" class="personalNo-1" placeholder="주민번호 앞 6자리">
-                    <br>
-                    <input type="text" maxlength="1" placeholder="주민번호 뒷 1자리">
-                    </label>
+                    <label for="user-us">주민등록번호</label>
+                    <input id="user-us" type="us" name="personal1" class="personalNo-1" placeholder="앞 6자리">-
+                    <input type="text" maxlength="1">******
                 </li>
             </ul>
         </fieldset>
@@ -95,5 +132,31 @@
             <button type="submit">비밀번호 찾기</button>
         </fieldset>
     </form>
+
+    <script>
+        const inputs = document.querySelectorAll('#loginbox input');
+        const submitBtn = document.querySelector('#joinbox button');
+
+        function validate() {
+            const id = inputs[0].value,
+                email = inputs[1].value,
+                phone = inputs[2].value,
+                code1 = inputs[3].value,
+                code2 = inputs[4].value;
+            
+            // 1. 이메일
+            if (!/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i.test(email)) return false;
+
+            // 2. 전화번호
+            if (!/^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/.test(phone)) return false;
+
+            // 3. 주민등록번호
+            if (!/[0-9]{6}/.test(code1)) return false;
+            if (!/[0-9]{1}/.test(code2)) return false;
+
+            return true;
+        }
+    </script>
 </body>
+
 </html>

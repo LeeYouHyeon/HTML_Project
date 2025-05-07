@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="../css/reset.css">
+
   <style>
     body {
       display: flex;
@@ -98,26 +100,27 @@
       border-top: 1px solid rgba(0, 0, 0, 0.2);
     }
 
-    .clickable:hover{
+    .clickable:hover {
       cursor: pointer;
     }
   </style>
+  <link rel="stylesheet" href="../css/head.css">
 </head>
 
 <body>
-  <head>
-    <div id = "headWrapper">
-      <div id = "logo">
-        로고
+  <header>
+    <div id="headWrapper">
+      <div id="logo" class="hoverable">
       </div>
-      <div id = "headMenu">
+      <div id="headMenu">
         <ul>
-          <li>공지사항</li>
-          <li>로그인</li>
+          <li class="hoverable" onclick="toNotices()">공지사항</li>
+          <li></li>
         </ul>
       </div>
     </div>
-  </head>
+  </header>
+  
   <div class="container">
     <div class="title"><img src="../image/공지사항 아이콘.jpg" alt="">공지사항</div>
     <div class="notice">
@@ -147,9 +150,10 @@
         <div class="box"></div>
       </div>
 
-      <button type="button" id="toList" class="clickable">목록</button>
+      <button type="button" id="toList" class="clickable" onclick="toNotices()">목록</button>
     </div>
   </div>
+  <script src="../js/head.js"></script>
   <script>
     const notice1 = {
       title: '[안내] My통계 복수인증 수단 도입',
@@ -218,11 +222,6 @@
         boxes[6].classList.add('clickable');
       }
     }
-
-    document.getElementById('toList').addEventListener('click', () => {
-      location.href = 'http://127.0.0.1:5500/html/notices.html';
-    })
-
   </script>
 </body>
 

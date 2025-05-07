@@ -1,82 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입</title>
     <style>
-        body{
-            background: linear-gradient(rgba(0, 0, 0, 0.548), rgba(0, 0, 0, 0.511)), url(../image/main1.png);
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.548), rgba(0, 0, 0, 0.511)), url(../image/image.png);
         }
-        *{padding: 0%; margin: 0%;}
-        form{
+
+        * {
+            padding: 0%;
+            margin: 0%;
+        }
+
+        form {
             width: 340px;
             margin: 0 auto;
-            transform: translate(1%, 50%);
+            transform: translate(1%, 30%);
             padding: 20px;
             border: 1px solid white;
             border-radius: 5px;
             background-color: hsla(221, 79%, 13%, 0.363);
             background-image: none;
         }
-        legend{
+
+        .login-image {
+            width: 350px;
+            height: 80px;
+            display: block;
+            margin: 0 auto;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+
+        legend {
             font-size: 16px;
             font-weight: bold;
             padding-left: 5px;
             padding-bottom: 10px;
             color: white;
         }
-        #loginbox label{
-            float: left; 
-            width: 120px; 
-            font-size: 15px; 
+
+        #loginbox label {
+            float: left;
+            width: 120px;
+            font-size: 15px;
             margin-left: 20px;
             color: white;
         }
-        li{
-            list-style-type: none; 
+
+        li {
+            list-style-type: none;
             margin-bottom: 5px;
         }
-        fieldset{
+
+        fieldset {
             border: 1px solid #ccc;
             margin-bottom: 30px;
             padding: 10px;
             outline: none;
             border-radius: 10px;
         }
-        #join{
+
+        #join {
             border: none;
             margin-top: 20px;
         }
-        #joinbox{
+
+        #joinbox {
             text-align: center;
             border: none;
             padding: 10px;
         }
-        #joinbox button{
+
+        #joinbox button {
             font-size: 15px;
             padding: 5px;
             border-radius: 5px;
             border: 1px solid black;
         }
-        #joinbox button:hover{
+
+        #joinbox button:hover {
             background-color: white;
         }
-        #mailbox label{
+
+        #mailbox label {
             font-size: 12px;
             margin-left: 20px;
             color: white;
         }
-        #mailbox input{
+
+        #mailbox input {
             vertical-align: middle;
-        }
-        input{
-            outline: none;
         }
     </style>
 </head>
+
 <body>
     <form id="login">
+
+        <img src="../image/LiveStage-2.jpg" class="login-image">
+        <!-- <img src="../image/LiveStage-3.jpg" class="login-image"> -->
+
         <fieldset id="loginbox">
             <legend>회원가입</legend>
             <ul>
@@ -112,7 +139,7 @@
         </fieldset>
 
         <fieldset id="joinbox">
-            <button type="submit" disabled>가입하기</button>
+            <button type="submit">가입하기</button>
         </fieldset>
     </form>
 
@@ -122,10 +149,10 @@
 
         function validate() {
             const id = inputs[0].value,
-            pw = inputs[1].value,
-            pwcheck = inputs[2].value,
-            email = inputs[3].value,
-            phone = inputs[4].value;
+                pw = inputs[1].value,
+                pwcheck = inputs[2].value,
+                email = inputs[3].value,
+                phone = inputs[4].value;
 
             if (id.length < 2) return false;
             if (id.includes(' ')) return false;
@@ -147,4 +174,5 @@
         });
     </script>
 </body>
+
 </html>

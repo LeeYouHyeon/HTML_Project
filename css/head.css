@@ -1,21 +1,31 @@
+header{
+  width: 100%;
+  margin-top: 10px;
+}
+
 #headWrapper{
   margin-bottom: 30px;
 
   display: flex;
   justify-content: space-around;
+  align-items: center;
   width: 100%;
 }
 
-#headWrapper>div{
-  margin-top: 20px;
+#headWrapper>#logo{
+  background-image: url(../image/LiveStage-2.jpg);
+  width: 110px;
+  height: 80px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.hoverable:hover{
+  cursor: pointer;
 }
 
 #headWrapper li{
   display: inline-block;
   padding-right : 40px;
-}
-#headWrapper li:hover{
-  cursor: pointer;
 }
 
 #headWrapper li:last-child{
