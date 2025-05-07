@@ -5,9 +5,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
   <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/pInfo.css">
+  <link rel="stylesheet" href="../css/hoverable.css">
+  <link rel="stylesheet" href="../css/invisible.css">
   <link rel="stylesheet" href="../css/head.css">
+  <title>Info</title>
+  <style>
+    .current {
+      background-color: #f8f8f8;
+      color: #ef5b5b;
+      border-top: 2px solid #ef5b5b;
+      font-weight: 600;
+    }
+  </style>
 </head>
 
 <body>
@@ -23,8 +34,83 @@
       </div>
     </div>
   </header>
-  
+
+  <main>
+    <div id="pInfoWrapper">
+      <!-- section 1 - 이미지 및 텍스트 -->
+      <section>
+        <div id="tit">
+          <div class="left">
+            <h3 id="h3"></h3>
+            <span id="badge"></span>
+            <a class="share">공유</a>
+          </div>
+
+          <div class="right">예매하기</div>
+        </div>
+      </section>
+
+      <!-- section 2 - 소개, 공연장 선택 div -->
+      <section>
+        <div class="infoWrapper">
+          <!-- img -->
+          <div class="tu"></div>
+          <!-- txt -->
+          <div class="zi">
+            <ul>
+              <li>장소 <span id="info_fcltynm"> </span></li>
+              <li>공연기간 <span id="info_prfpdFromTo"></span></li>
+              <li>공연시간 <span id="info_prfruntime"></span></li>
+              <li>관람연령 <span id="info_prfage"></span></li>
+              <li>가격 <span id="info_pcseguidance"></span></li>
+            </ul>
+          </div>
+
+          <!-- payment -->
+          <!-- <div>
+            <div>
+              예매
+            </div>
+              
+            <div>
+              <span id ="info_paymentImg">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-credit-card" viewBox="0 0 16 16">
+                  <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
+                  <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
+                </svg>
+              </span>
+            </div>
+          </div> -->
+        </div>
+      </section>
+      <a href=""></a>
+      <!-- section 3 - Category 선택 -->
+      <section>
+        <div class="categoryWrapper">
+          <div class="category hoverable current">소개</div>
+          <div class="category hoverable">공연장</div>
+        </div>
+      </section>
+
+      <!-- section 4 - contents 출력 -->
+      <section>
+        <div class="contents"></div>
+        <div class="contents invisible">
+          <div class="name"></div>
+          <ul>
+            <li><div class="fieldName">시설특성</div><div class="field"></div></li>
+            <li><div class="fieldName">주소</div><div class="field"></div></li>
+            <li><div class="fieldName">홈페이지</div><div class="field"></div></li>
+          </ul>
+          <div class="apiName">공연장 위치</div>
+          <div class="kakaoMaps"></div>
+        </div>
+      </section>
+    </div>
+  </main>
   <script src="../js/head.js"></script>
+  <script src="../js/colorSet.js"></script>
+  <script src="../js/pInfo.js"></script>
 </body>
 
 </html>
