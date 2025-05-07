@@ -54,9 +54,15 @@ function detailPagePrint(jsonArr){
 
   const contents = document.querySelectorAll('.contents');
   // 소개 부분 채우기
-  for (const styImg of jrr.styurls.styurl) {
-    contents[0].innerHTML += `<img src="${styImg['#text']}" width="1000">`;
+  const imgs = jrr.styurls.styurl;
+  if (Array.isArray(imgs)) {
+    for (const styImg of imgs) {
+      contents[0].innerHTML += `<img src="${styImg['#text']}" width="1000">`;
+    }
+  } else {
+    contents[0].innerHTML = `<img src="${imgs['#text']}" width="1000">`;
   }
+  
 
   // 지도 채우기
   // 공연장 이름
