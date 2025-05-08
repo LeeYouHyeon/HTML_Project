@@ -93,8 +93,6 @@ const genres = document.querySelectorAll('.genre');
 if(genres.length){
   genres.forEach(e => {
     e.addEventListener('click', key => {
-      // 장르 ID 확인,
-      console.log(key.target.id);
       let fetchUrl = `https://www.kopis.or.kr/openApi/restful/pblprfr?`
                  + `service=${authorKey}`
                  + `&stdate=${startDate}`
@@ -109,7 +107,6 @@ if(genres.length){
       if (id != 'all') {
         fetchUrl += `&shcate=${id}`;
       }
-      console.log(id);
       // 해당 장르의 API 정보 불러오기 (초기화면 설정)
       fetchPage(fetchUrl, id);
       // 클릭 이벤트 변경
@@ -129,10 +126,10 @@ if(genres.length){
 
 // fetchPage() - 장르별 초기화면 페이지 불러오기 
 function fetchPage(url, keyTargetId) {
-  rowsElem = 15;
   // 현재 탐색중인 장르는 여러 번 부르지 않음
-  if (keyTargetId == genres[currentGenre].id) return; 
-
+  if (keyTargetId == genres[currentGenre].id) return;
+  
+  rowsElem = 15;
   fetch(url).then(res => res.text())
     .then(xmlString => {
       // XML → JSON
@@ -147,7 +144,7 @@ function fetchPage(url, keyTargetId) {
       // 화면에 공연 목록과 더보기 버튼 출력
       // 1) 목록이 15개가 안 되면 더보기 버튼을 없앰
       // 2) 해당하는 공연이 없을 경우 데이터가 없다는 문구를 표시
-      moreInfo.style.display = 'default';
+      moreInfo.style.display = 'flex';
       infoList.innerHTML = '';
       for (let i = 0; i < rowsElem; i++) {
         try {
@@ -163,14 +160,13 @@ function fetchPage(url, keyTargetId) {
       }
 
       detailPageList();
-    }).catch(err => console.error(err));
+    }).catch(console.log);
 
   // 클릭한 장르 강조 CSS 
   genres[currentGenre].classList.remove('current');
   genres[genreIndex[keyTargetId]].classList.add('current');
   currentGenre = genreIndex[keyTargetId];
 } 
-
 
 // detailPageList() - 이미지 클릭 시 상세 페이지로 이동하는 메서드 
 function detailPageList(){
@@ -181,7 +177,6 @@ function detailPageList(){
       // href 로 바로 이동하는 것을 지연시킴 
       event.preventDefault();
 
-      console.log(event.target);
       // 링크의 URL을 읽어올 때 사용
       // e.currentTarget.dataset.url 로도 사용 가능
       const apiUrl = event.target.dataset.url;
@@ -214,14 +209,12 @@ function plusMoreInfo(url){
   .then(xmlString => {
     const xmlDoc = new DOMParser().parseFromString(xmlString, 'text/xml');
 
-    const jsonResult = xmlToJson(xmlDoc); // 확인, 
-    console.log(jsonResult.dbs.db);
-    const jsonArr = jsonResult.dbs.db; // 확인, 
-    console.log(jsonArr);
+    const jsonResult = xmlToJson(xmlDoc);
+    const jsonArr = jsonResult.dbs.db;
     
     infoList.innerHTML = '';
 
-    moreInfo.style.display = 'default';
+    moreInfo.style.display = 'flex';
     for (let i = 0; i < rowsElem; i++) {
       try {
         printElem(jsonArr, i);
