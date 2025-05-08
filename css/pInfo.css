@@ -112,8 +112,11 @@ div{
 }
 
 .zi>ul>li {
-  margin-bottom: 35px;
+  max-width: 560px;
+  overflow-x: scroll;
+  scrollbar-width: none;
 
+  margin-bottom: 35px;
   font-family: "Jua", sans-serif;
   font-size: 21px;
   font-weight: 400;

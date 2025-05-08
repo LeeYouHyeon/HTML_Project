@@ -197,7 +197,6 @@ function plusMoreInfo(){
 
     const jsonResult = xmlToJson(xmlDoc);
     const jsonArr = jsonResult.dbs.db;
-    console.log(jsonArr);
 
     moreInfo.style.display = 'flex';
     for (let i = 0; i < rowsElem; i++) {
@@ -219,8 +218,7 @@ function plusMoreInfo(){
   if (!performances[idx]) {
     throw new Error();
   }
-
-  console.log(performances[idx]);
+  
   let item = performances[idx];
   let category = item.genrenm["#text"]; 
   let tmp = '';
