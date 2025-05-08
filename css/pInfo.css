@@ -112,7 +112,7 @@ div{
 }
 
 .zi>ul>li {
-  max-width: 560px;
+  width: 550px;
   overflow-x: scroll;
   scrollbar-width: none;
 
