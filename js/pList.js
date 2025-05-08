@@ -12,7 +12,7 @@
 let currentPage = 1;
 let rowsElem = 15;
 let localValue = 0;
-let currentGenre = 0;
+let currentGenre = 'all';
 
 const genreIndex = {
   'all': 0,
@@ -158,7 +158,7 @@ function fetchPage(keyTargetId) {
     }).catch(console.log);
 
   // 클릭한 장르 강조 CSS 
-  genres[currentGenre].classList.remove('current');
+  genres[genreIndex[currentGenre]].classList.remove('current');
   genres[genreIndex[keyTargetId]].classList.add('current');
   currentGenre = keyTargetId;
 } 

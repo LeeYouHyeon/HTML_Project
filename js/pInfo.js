@@ -66,7 +66,6 @@ function detailPagePrint(jsonArr){
   fromDate = new Date(from.replace(/\./g,'-'));
   toDate   = new Date(to.replace(/\./g,'-'));
   
-  
   // 공연기간(fromDate~toDate) 내의 날짜 문자열 목록 만들기
   const perfDates = new Set();
   {
@@ -81,6 +80,7 @@ function detailPagePrint(jsonArr){
   $("#calendar").datepicker("option", {
     minDate: fromDate,
     maxDate: toDate,
+    overflow: 'visible',
 
     beforeShowDay(date) {
       const dstr = $.datepicker.formatDate("yy-mm-dd", date);
@@ -96,6 +96,7 @@ function detailPagePrint(jsonArr){
     // }
     
   });
+  document.getElementById('calendar').style.overflow = 'visible';
 
   const contents = document.querySelectorAll('.contents');
   // 소개 부분 채우기
