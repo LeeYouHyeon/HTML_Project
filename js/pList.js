@@ -27,13 +27,21 @@ const genreIndex = {
   'EEEA': 9
 };
 
- // 특정 지역 코드의 url 
-let signGuCodeUrl = `https://www.kopis.or.kr/openApi/restful/pblprfr?`
-          + `service=${authorKey}`
-          + `&stdate=${startDate}`
-          + `&eddate=${endDate}`
-          + `&cpage=${currentPage}&rows=${rowsElem}`;
-          // signGuCodeUrl += `&signgucode=${지역코드 변수}`;
+function createURL(genre = 'all') {
+  let answer = `https://www.kopis.or.kr/openApi/restful/pblprfr?`;
+  answer += `service=${authorKey}`;
+  answer += `&stdate=${startDate}`;
+  answer += `&eddate=${endDate}`;
+  answer += `&cpage=${currentPage}`;
+  answer += `&rows=${rowsElem}`;
+  answer += `&signgucode=${localValue}`;
+
+  if (genre != 'all') {
+    answer += `&shcate=${genre}`;
+  }
+
+  return answer;
+}
 
  // document Elem
 const infoList = document.getElementById('infoList');
@@ -41,7 +49,7 @@ const moreInfo = document.getElementById('moreInfo');
 
 // pList.html -------------------------------------------------------------------------------------------
   // 문서에 API 정보 뿌리기
-document.addEventListener('DOMContentLoaded', (e) => {
+document.addEventListener('DOMContentLoaded', () => {
   // 로컬 스토리지의 지역 코드 확인, console.log(localStorage.getItem('localValue'));
 
   // 로컬 스토리지에서 지역 코드 가져오기 
@@ -51,12 +59,11 @@ document.addEventListener('DOMContentLoaded', (e) => {
   if(!localValue){ console.err('지역 코드 미저장..!'); return; }
 
   // 특정 지역 코드의 공연정보를 가져오는 url 생성 
-  signGuCodeUrl += `&signgucode=${localValue}`;
+  let signGuCodeUrl = createURL();
   
   fetch(signGuCodeUrl).then(res => res.text())
     // { if(res.ok) throw new Error(`${res.status} ${res.statusText}`)
     // { return res.text(); })
-
   .then(xmlString => {
     // XML → JSON 변환 
     const xmlDoc = new DOMParser().parseFromString(xmlString, 'text/xml');
@@ -93,24 +100,14 @@ const genres = document.querySelectorAll('.genre');
 if(genres.length){
   genres.forEach(e => {
     e.addEventListener('click', key => {
-      let fetchUrl = `https://www.kopis.or.kr/openApi/restful/pblprfr?`
-                 + `service=${authorKey}`
-                 + `&stdate=${startDate}`
-                 + `&eddate=${endDate}`
-                 + `&cpage=${currentPage}&rows=${rowsElem}`
-                 + `&signgucode=${localValue}`;
-      
       let id = key.target.id;
       if (key.target.classList.contains('p')) {
         id = key.target.classList[1];
       }
-      if (id != 'all') {
-        fetchUrl += `&shcate=${id}`;
-      }
       // 해당 장르의 API 정보 불러오기 (초기화면 설정)
-      fetchPage(fetchUrl, id);
+      fetchPage(id);
       // 클릭 이벤트 변경
-      moreInfo.onclick = () => plusMoreInfo(fetchUrl);
+      moreInfo.onclick = () => plusMoreInfo();
 
       // if (key.target.id != 'all') {
       //   fetchUrl += `&shcate=${key.target.id}`;
@@ -125,12 +122,12 @@ if(genres.length){
 } 
 
 // fetchPage() - 장르별 초기화면 페이지 불러오기 
-function fetchPage(url, keyTargetId) {
+function fetchPage(keyTargetId) {
   // 현재 탐색중인 장르는 여러 번 부르지 않음
   if (keyTargetId == genres[currentGenre].id) return;
-  
-  rowsElem = 15;
-  fetch(url).then(res => res.text())
+
+  currentPage = 1;
+  fetch(createURL(keyTargetId)).then(res => res.text())
     .then(xmlString => {
       // XML → JSON
       const xmlDoc = new DOMParser().parseFromString(xmlString, 'text/xml');
@@ -192,27 +189,17 @@ function detailPageList(){
 }
 
 // plusMoreInfo() - 더보기 정보 출력 메서드 (더보기 버튼)  
-function plusMoreInfo(url){
-  rowsElem += 15; // 확인, console.log(rowsElem); console.log(url);
-
-  if(url == ''){
-    url = `https://www.kopis.or.kr/openApi/restful/pblprfr?`
-          + `service=${authorKey}`
-          + `&stdate=${startDate}`
-          + `&eddate=${endDate}`
-          + `&cpage=${currentPage}&rows=${rowsElem}`
-          + `&signgucode=${localValue}`;
-  }
+function plusMoreInfo(){
+  currentPage++;
 
   // 공연 목록 조회 API 호출
-  fetch(url).then(res => res.text()) // text() 괄호 생략 X
+  fetch(createURL(currentGenre)).then(res => res.text()) // text() 괄호 생략 X
   .then(xmlString => {
     const xmlDoc = new DOMParser().parseFromString(xmlString, 'text/xml');
 
     const jsonResult = xmlToJson(xmlDoc);
     const jsonArr = jsonResult.dbs.db;
-    
-    infoList.innerHTML = '';
+    console.log(jsonArr);
 
     moreInfo.style.display = 'flex';
     for (let i = 0; i < rowsElem; i++) {
@@ -235,6 +222,7 @@ function plusMoreInfo(url){
     throw new Error();
   }
 
+  console.log(performances[idx]);
   let item = performances[idx];
   let category = item.genrenm["#text"]; 
   let tmp = '';
