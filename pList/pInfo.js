@@ -1,26 +1,25 @@
 // 전역 변수 선언
-let intro = document.getElementsByClassName('contents')[0];
-let place = document.getElementsByClassName('contents')[1];
-let jrr, placeJSON; // 콘솔 확인용(실제 기능에는 영향 없음)
-
 let [from, to] = [ '', '' ];
 let fromDate = ''; let toDate = '';
 
-// 문서 이동 시 로드되는 페이지  
+
+// 초기에 로드되는 페이지  
 document.addEventListener('DOMContentLoaded',() => {
-  const apiUrl = localStorage.getItem('targetPageId'); // 확인
+  const apiUrl = localStorage.getItem('targetPageId'); // 확인, 
+  console.log(apiUrl);
 
   fetch(apiUrl).then(res => res.text())
   .then(xmlString => {
     const xmlDoc = new DOMParser().parseFromString(xmlString,'text/xml');
     const jsonResult = xmlToJson(xmlDoc);
     const jsonArr = jsonResult.dbs.db; // 확인,
-    jrr = jsonArr;
+    console.log(jsonArr);
 
     detailPagePrint(jsonArr);
     shareLink();
   })
 })
+
 
 // detailPagePrint() - 상세 페이지 출력 메서드
 function detailPagePrint(jsonArr){
@@ -34,6 +33,8 @@ function detailPagePrint(jsonArr){
   const info_prfage = document.getElementById('info_prfage');
   const info_pcseguidance = document.getElementById('info_pcseguidance');
   const info_prfcast = document.getElementById('info_prfcast');
+
+  // 확인, console.log(jsonArr.genrenm["#text"]);
 
   h3.innerHTML += `${jsonArr.prfnm["#text"]}`;
   badge.innerHTML += `${jsonArr.genrenm["#text"]}`;
@@ -51,7 +52,11 @@ function detailPagePrint(jsonArr){
   info_prfruntime.innerHTML += jsonArr.prfruntime["#text"];
   info_prfage.innerHTML += jsonArr.prfage["#text"];
   info_pcseguidance.innerHTML += jsonArr.pcseguidance["#text"];
-  info_prfcast.innerHTML = (jsonArr.prfcast["#text"] == null) ? '' : jsonArr.prfcast["#text"];
+
+  if(jsonArr.prfcast["#text"] == null){
+    info_prfcast.innerHTML += '';
+  } else{ info_prfcast.innerHTML += jsonArr.prfcast["#text"]; }
+   
 
   // 달력에 표시하기 위한 전역 변수 설정
   let periodText = info_prfpdFromTo.textContent;
@@ -93,91 +98,24 @@ function detailPagePrint(jsonArr){
     
   });
 
-  const contents = document.querySelectorAll('.contents');
-  // 소개 부분 채우기
-  const imgs = jrr.styurls.styurl;
-  if (Array.isArray(imgs)) {
-    for (const styImg of imgs) {
-      contents[0].innerHTML += `<img src="${styImg['#text']}" width="1200">`;
-    }
-  } else {
-    contents[0].innerHTML = `<img src="${imgs['#text']}" width="1200">`;
-  }
-  
-  // 지도 채우기
-  // 공연장 이름
-  document.querySelector('.name').innerHTML = jsonArr.fcltynm["#text"];
-  // 공연장 상세 : API 불러오기
-  fetch(`http://www.kopis.or.kr/openApi/restful/prfplc/${jsonArr.mt10id['#text']}?service=17beea38263f4378901270b9bcdc9ce6`).then(res => res.text()).then(xmlString => {
-    const xmlDoc = new DOMParser().parseFromString(xmlString, 'text/xml');
-    const jsonResult = xmlToJson(xmlDoc);
-    const jsonArr = jsonResult.dbs.db;
-    placeJSON = jsonArr;
-  
-    const fields = document.querySelectorAll('.field');
-    fields[0].innerHTML = jsonArr.fcltychartr["#text"];
-    fields[1].innerHTML = jsonArr.adres["#text"];
-
-    // 공연장 홈페이지는 없을 수 있음
-    fields[2].innerHTML = (jsonArr.relateurl['#text']) ? `<a href="${jsonArr.relateurl["#text"]}">${jsonArr.relateurl["#text"]}</a>` : '없음';
-
-    // 지도 채우기 : 구글 API
-    (g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })({
-      key: 'AIzaSyBkJGI8EZC8aQOwPy3I0NpcGcU28qxJdd8',
-      v: "weekly",
-      // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
-      // Add other bootstrap parameters as needed, using camel case.
-    });
-    let map;
-
-    async function initMap() {
-      // The location of Uluru
-      const position = { lat: Number(jsonArr.la['#text']), lng: Number(jsonArr.lo['#text']) };
-      // Request needed libraries.
-      //@ts-ignore
-      const { Map } = await google.maps.importLibrary("maps");
-      const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
-
-      map = new Map(document.getElementById("map"), {
-        zoom: 15,
-        center: position,
-        mapId: "DEMO_MAP_ID",
-      });
-
-      const marker = new AdvancedMarkerElement({
-        map: map,
-        position: position,
-        title: jsonArr.fcltynm['#text'],
-      });
-    }
-
-    initMap();
-  });
 }
 
-// Jquery DatePicker 
-$(function() {
-  // 기본 로케일을 한국어로 변경
-  $.datepicker.setDefaults({
-    dateFormat: 'yy-mm-dd',
-    prevText: '이전 달',
-    nextText: '다음 달',
-    monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-    monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-    dayNames: ['일', '월', '화', '수', '목', '금', '토'],
-    dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
-    dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-    showMonthAfterYear: true,
-    yearSuffix: '년'
+// initMap() - 지도에 공연장 위치를 찍는 메서드
+function initMap(lat, lng) {
+  // 지도 기본 설정 (서울 중심)
+  const center = { lat, lng }; // 서울 좌표
+  const map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 10,
+    center: center,
   });
-
-  $("#calendar").datepicker({
-    inline: true,             // 페이지에 인라인으로 표시
-    showOtherMonths: true,    // 이달 외 달도 회색으로 표시
-    selectOtherMonths: true,  // 이달 외 달도 선택 가능
-    firstDay: 1,              // 일요일을 주 시작일로
+  
+  // 마커 추가
+  const marker = new google.maps.Marker({
+    position: center,
+    map: map,
+    title: "공연장",
   });
-});
+} 
 
 function shareLink(){
   const copyBtn = document.getElementById('copyLink');
@@ -201,19 +139,73 @@ function shareLink(){
   });
 }
 
-// Section 3에 선택 효과 부여 : Section 4에 표시되는 내용이 바뀜
-const category = document.querySelectorAll('.category');
-category.forEach((val, idx) => {
-  val.addEventListener('click', () => {
-    const choice = document.querySelectorAll('.contents');
 
-    category[idx].classList.add('current');
-    choice[idx].classList.remove('invisible');
-    choice[1 - idx].classList.add('invisible');
-    category[1 - idx].classList.remove('current');
-  })
-});
+function colorSet(genrenm){
+  let bgc = '';
+  let bdColor = '';
+  let txtColor = '';
 
+  switch(genrenm){
+    case '연극': 
+      // elem.style.setProperty(속성명, 값, [우선순위]); 
+      bgc = '#fff9f4'; // 배경색
+      bdColor = '#de8383'; // 테두리색
+      txtColor = '#de8383'; // 글씨색
+      break;
+
+    case '뮤지컬':
+      bgc = '#f4faff'; // 배경색
+      bdColor = '#83b4de'; // 테두리색
+      txtColor = '#257dd7'; // 글씨색
+      break;
+
+    case '서양음악(클래식)':
+      bgc = '#f4faff'; // 배경색
+      bdColor = '#a391d2'; // 테두리색
+      txtColor = '#a391d2'; // 글씨색
+      break;
+
+    case '한국음악(국악)':
+      bgc = '#ffffe4'; // 배경색
+      bdColor = '#868608'; // 테두리색
+      txtColor = '#868608'; // 글씨색
+      break;
+
+    case '대중음악':
+      bgc = '#f6f8f8'; // 배경색
+      bdColor = '#2c2a2a'; // 테두리색
+      txtColor = '#2c2a2a'; // 글씨색
+      break;
+    
+    case '무용':
+      bgc = '#f3fdfd'; // 배경색
+      bdColor = '#e7eeee'; // 테두리색
+      txtColor = '#449496'; // 글씨색
+      break;
+
+    case '대중무용':
+      bgc = '#fff9f4'; // 배경색
+      bdColor = '#1f4362'; // 테두리색
+      txtColor = '#1f4362'; // 글씨색
+      break;
+
+    case '서커스/마술':
+      bgc = '#fcf3fb'; // 배경색
+      bdColor = '#c27fbb'; // 테두리색
+      txtColor = '#c27fbb'; // 글씨색
+      break;
+    
+    case '복합':
+      bgc = '#f2f2f2'; // 배경색
+      bdColor = '#636363'; // 테두리색
+      txtColor = '#636363'; // 글씨색
+      break;  
+  }
+
+  return { bgc, bdColor, txtColor };
+}
+
+// 
 function xmlToJson(xml) {
   // node 타입별 처리
   let obj = {};
@@ -256,3 +248,28 @@ function xmlToJson(xml) {
   }
   return obj;
 }
+
+
+// Jquery DatePicker 
+$(function() {
+  // 기본 로케일을 한국어로 변경
+  $.datepicker.setDefaults({
+    dateFormat: 'yy-mm-dd',
+    prevText: '이전 달',
+    nextText: '다음 달',
+    monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+    monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+    dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+    dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+    dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+    showMonthAfterYear: true,
+    yearSuffix: '년'
+  });
+
+  $("#calendar").datepicker({
+    inline: true,             // 페이지에 인라인으로 표시
+    showOtherMonths: true,    // 이달 외 달도 회색으로 표시
+    selectOtherMonths: true,  // 이달 외 달도 선택 가능
+    firstDay: 1,              // 일요일을 주 시작일로
+  });
+});

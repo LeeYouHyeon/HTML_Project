@@ -1,0 +1,139 @@
+<!-- 공연 상세 사항을 알려주는 페이지 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- jQuery UI Datepicker CSS -->
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+  <!-- Vanila CSS -->
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/pInfo.css">
+  <link rel="stylesheet" href="../css/head.css">
+
+  <!-- font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&family=Special+Gothic+Expanded+One&display=swap"
+    rel="stylesheet">
+
+  <!-- 지도 -->
+  <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYmhgutofDXQj4KeF3mWMkgw2yc4lPLZ0&callback=initMap">
+    </script>
+
+  <title>Info</title>
+
+</head>
+
+<body>
+  <header>
+    <header>
+      <div id="headWrapper">
+        <div id="logo" class="hoverable">
+        </div>
+        <div id="headMenu">
+          <ul>
+            <li class="hoverable" onclick="toNotices()">공지사항</li>
+            <li></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div id="pInfoWrapper">
+        <!-- section 1 - 이미지 및 텍스트 -->
+        <section>
+          <div id="tit">
+            <div class="left">
+              <h3 id="h3"></h3>
+              <span id="badge"></span>
+              <span id="share">
+                <a href="#" id="copyLink">
+                  <svg id="linkIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                    class="bi bi-share-fill" viewBox="0 0 16 16">
+                    <path
+                      d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.5 2.5 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5" />
+                  </svg>
+                </a>
+              </span>
+              <span class="moreIcon invisible"></span>
+            </div>
+
+            <div class="right">
+              예매하기
+            </div>
+          </div>
+        </section>
+
+        <!-- section 2 - 소개, 공연장 선택 div -->
+        <section>
+          <div class="infoWrapper">
+            <div class="tuAndZi">
+              <div class="tu">
+
+              </div>
+
+              <!-- txt -->
+              <div class="zi">
+                <ul>
+                  <li>장소 <span id="info_fcltynm"> </span></li>
+                  <li>공연기간 <span id="info_prfpdFromTo"></span></li>
+                  <li>공연시간 <span id="info_prfruntime"></span></li>
+                  <li>관람연령 <span id="info_prfage"></span></li>
+                  <li>가격 <span id="info_pcseguidance"></span></li>
+                  <li>출연진 <span id="info_prfcast"></span></li>
+                </ul>
+              </div>
+            </div>
+            <!-- img -->
+
+
+            <!-- 달력 -->
+            <div id="calendar">
+              <!-- <div class="ui-datepicker-inline ui-datepicker ui-widget ui-widget-content">
+              
+            </div> -->
+            </div>
+          </div>
+        </section>
+
+        <!-- section 3 - Category 선택 -->
+        <section>
+          <div class="categoryWrapper">
+            <div class="category ">소개</div>
+            <div class="category ">공연장</div>
+          </div>
+        </section>
+
+        <!-- section 4 - contents 출력 -->
+        <section>
+          <div class="contents current">
+
+          </div>
+
+          <div class="contents current invisible">
+
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+
+    </footer>
+
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/i18n/datepicker-ko.js"></script>
+    <script src="../js/head.js"></script>
+    <script src="../js/pInfo.js"></script>
+
+
+</body>
+
+</html>

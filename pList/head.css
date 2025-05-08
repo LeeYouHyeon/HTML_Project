@@ -1,0 +1,46 @@
+header{
+  width: 100%;
+  margin-top: 10px;
+}
+
+#headWrapper{
+  margin-bottom: 60px;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+
+#headWrapper>#logo{
+  background-image: url(../image/LiveStage-2.jpg);
+  width: 110px;
+  height: 80px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.hoverable:hover{
+  cursor: pointer;
+}
+
+#headMenu{
+  position: relative;
+}
+
+.hoverable::before{
+  content: "";
+  width: 1px; height: 19px;
+  background: #8c8c8c;
+  position: absolute;
+    top: 0; left: 80px;
+}
+
+#headWrapper li{
+  display: inline-block;
+  padding-right : 40px;
+}
+
+#headWrapper li:last-child{
+  padding-right : 0px;
+}

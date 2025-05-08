@@ -81,8 +81,10 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
 })
 
+
 // 더보기 초기 설정 - 더보기 버튼 클릭 시 새로운 공연 정보 목록 15개 출력
 moreInfo.onclick = () => plusMoreInfo('');
+
 
 // 장르를 눌렀을 때, 새 쿼리 생성
  // genre 인 모든 요소를 찾아서 NodeList (배열과 유사한 리스트) 로 반환
@@ -127,6 +129,7 @@ if(genres.length){
   });
 } 
 
+
 // fetchPage() - 장르별 초기화면 페이지 불러오기 
 function fetchPage(url, keyTargetId) {
   rowsElem = 15;
@@ -147,13 +150,13 @@ function fetchPage(url, keyTargetId) {
       // 화면에 공연 목록과 더보기 버튼 출력
       // 1) 목록이 15개가 안 되면 더보기 버튼을 없앰
       // 2) 해당하는 공연이 없을 경우 데이터가 없다는 문구를 표시
-      moreInfo.style.display = 'default';
+      moreInfo.classList.remove('invisible');
       infoList.innerHTML = '';
       for (let i = 0; i < rowsElem; i++) {
         try {
           printElem(jsonArr, i);
         } catch (error) {
-          moreInfo.style.display = 'none';
+          moreInfo.classList.add('invisible');
 
           if (i == 0) {
             noData.classList.remove('invisible');
@@ -161,9 +164,9 @@ function fetchPage(url, keyTargetId) {
           break;
         }
       }
-
       detailPageList();
-    }).catch(err => console.error(err));
+    })
+      .catch(err => console.error(err));
 
   // 클릭한 장르 강조 CSS 
   genres[currentGenre].classList.remove('current');
@@ -172,11 +175,13 @@ function fetchPage(url, keyTargetId) {
 } 
 
 
-// detailPageList() - 이미지 클릭 시 상세 페이지로 이동하는 메서드 
+// detailPageList() - 이미지 클릭 시 상세 페이지로 이동할 수 있게 해주는 메서드 
 function detailPageList(){
+  console.log(document.querySelectorAll('.detailPage'));
+
   // <img> 에 Event Listener 달기 
   document.querySelectorAll('.detailPage').forEach(img => {
-
+    
   img.addEventListener('click', event => {
       // href 로 바로 이동하는 것을 지연시킴 
       event.preventDefault();
@@ -189,12 +194,13 @@ function detailPageList(){
       localStorage.setItem('targetPageId',apiUrl);
 
       // 'http://127.0.0.1:5500/Project/html/pInfo.html';
-      window.location.href = 'http://127.0.0.1:5500/html/pInfo.html';
+      window.location.href = 'http://127.0.0.1:5500/Project/html/pInfo.html';
       // link.href = 'http://127.0.0.1:5500/Project/html/pInfo.html';
       // event.setAttribute('href','http://127.0.0.1:5500/Project/html/pInfo.html');
     })
   }) 
 }
+
 
 // plusMoreInfo() - 더보기 정보 출력 메서드 (더보기 버튼)  
 function plusMoreInfo(url){
@@ -221,12 +227,13 @@ function plusMoreInfo(url){
     
     infoList.innerHTML = '';
 
-    moreInfo.style.display = 'default';
+    moreInfo.classList.remove('invisible');
+    
     for (let i = 0; i < rowsElem; i++) {
       try {
         printElem(jsonArr, i);
       } catch (error) {
-        moreInfo.style.display = 'none';
+        moreInfo.classList.add('invisible');
         break;
       }
     }
@@ -234,6 +241,7 @@ function plusMoreInfo(url){
   })
   .catch(err => console.error(err));
 }
+
 
 // 출력 형태 지정 메서드
  // <li></li> 안의 <div> 를 display : table; 혹은 display : grid; 사용 
@@ -252,7 +260,7 @@ function plusMoreInfo(url){
 
   tmp += `<li><div class = listInDiv>`;
   // imgDiv (img) 
-  tmp += `<div class = "imgDiv hoverable">`;
+  tmp += `<div class = "imgDiv">`;
     // 공연 상세 페이지 이동 링크 첨부
   tmp += `<a class="detailPage">`;
        // 이미지 경로
