@@ -46,12 +46,16 @@ function detailPagePrint(jsonArr){
 
   tu.innerHTML += `<img id = "img" src = ${jsonArr.poster["#text"]}>`;
 
-  info_fcltynm.innerHTML += jsonArr.fcltynm["#text"];
-  info_prfpdFromTo.innerHTML += `${jsonArr.prfpdfrom["#text"]} ~ ${jsonArr.prfpdto["#text"]}`;
-  info_prfruntime.innerHTML += jsonArr.prfruntime["#text"];
-  info_prfage.innerHTML += jsonArr.prfage["#text"];
-  info_pcseguidance.innerHTML += jsonArr.pcseguidance["#text"];
-  info_prfcast.innerHTML = (jsonArr.prfcast["#text"] == null) ? '' : jsonArr.prfcast["#text"];
+  function ifUndef(str) {
+    return str == undefined ? '' : str;
+  }
+
+  info_fcltynm.innerHTML += ifUndef(jsonArr.fcltynm["#text"]);
+  info_prfpdFromTo.innerHTML += `${ifUndef(jsonArr.prfpdfrom["#text"])} ~ ${ifUndef(jsonArr.prfpdto["#text"])}`;
+  info_prfruntime.innerHTML += ifUndef(jsonArr.prfruntime["#text"]);
+  info_prfage.innerHTML += ifUndef(jsonArr.prfage["#text"]);
+  info_pcseguidance.innerHTML += ifUndef(jsonArr.pcseguidance["#text"])
+  info_prfcast.innerHTML = ifUndef(jsonArr.prfcast["#text"]);
 
   // 달력에 표시하기 위한 전역 변수 설정
   let periodText = info_prfpdFromTo.textContent;
@@ -139,7 +143,7 @@ function detailPagePrint(jsonArr){
       const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
 
       map = new Map(document.getElementById("map"), {
-        zoom: 15,
+        zoom: 17,
         center: position,
         mapId: "DEMO_MAP_ID",
       });
