@@ -128,7 +128,7 @@
         </fieldset>
 
         <fieldset id="joinbox">
-            <button type="submit">비밀번호 찾기</button>
+            <button type="button" onclick="toMain()">비밀번호 찾기</button>
         </fieldset>
     </form>
 
@@ -154,6 +154,12 @@
             if (!/[0-9]{1}/.test(code2)) return false;
 
             return true;
+        }
+
+        function toMain() {
+            alert('지원하지 않는 기능입니다. 메인으로 돌아갑니다.');
+
+            location.href = 'http://127.0.0.1:5500/html/mainPage.html';
         }
     </script>
 </body>

@@ -165,7 +165,7 @@
         </fieldset>
 
         <fieldset id="joinbox">
-            <button type="button" disabled onclick="history.back()">가입하기</button>
+            <button type="button" disabled onclick="toMain()">가입하기</button>
         </fieldset>
     </form>
 
@@ -200,6 +200,11 @@
         document.addEventListener('change', () => {
             submitBtn.disabled = !validate();
         });
+
+        function toMain() {
+            alert('지원하지 않는 기능입니다. 메인으로 돌아갑니다.');
+            location.href = 'http://127.0.0.1:5500/html/mainPage.html';
+        }
     </script>
 </body>
 
