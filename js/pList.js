@@ -59,9 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if(!localValue){ console.err('지역 코드 미저장..!'); return; }
 
   // 특정 지역 코드의 공연정보를 가져오는 url 생성 
-  let signGuCodeUrl = createURL();
-  
-  fetch(signGuCodeUrl).then(res => res.text())
+  fetch(createURL()).then(res => res.text())
     // { if(res.ok) throw new Error(`${res.status} ${res.statusText}`)
     // { return res.text(); })
   .then(xmlString => {
@@ -124,7 +122,7 @@ if(genres.length){
 // fetchPage() - 장르별 초기화면 페이지 불러오기 
 function fetchPage(keyTargetId) {
   // 현재 탐색중인 장르는 여러 번 부르지 않음
-  if (keyTargetId == genres[currentGenre].id) return;
+  if (keyTargetId == currentGenre) return;
 
   currentPage = 1;
   fetch(createURL(keyTargetId)).then(res => res.text())
@@ -162,7 +160,7 @@ function fetchPage(keyTargetId) {
   // 클릭한 장르 강조 CSS 
   genres[currentGenre].classList.remove('current');
   genres[genreIndex[keyTargetId]].classList.add('current');
-  currentGenre = genreIndex[keyTargetId];
+  currentGenre = keyTargetId;
 } 
 
 // detailPageList() - 이미지 클릭 시 상세 페이지로 이동하는 메서드 
