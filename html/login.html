@@ -86,7 +86,8 @@
             const inputs = document.querySelectorAll('input');
             if (inputs[0].value == 'admin' && inputs[1].value == '123456*') {
                 localStorage.setItem('user', 'admin');
-                history.back();
+                if (history.length <= 1) location.href = 'http://127.0.0.1:5500/html/mainPage.html';
+                else history.back();
             } else {
                 alert('로그인에 실패했습니다.');
                 inputs[0].value = '';
