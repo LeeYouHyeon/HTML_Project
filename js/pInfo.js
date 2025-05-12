@@ -3,30 +3,30 @@ let intro = document.getElementsByClassName('contents')[0];
 let place = document.getElementsByClassName('contents')[1];
 let jrr, placeJSON; // 콘솔 확인용(실제 기능에는 영향 없음)
 
-let [from, to] = [ '', '' ];
+let [from, to] = ['', ''];
 let fromDate = ''; let toDate = '';
 
 // 문서 이동 시 로드되는 페이지  
-document.addEventListener('DOMContentLoaded',() => {
+document.addEventListener('DOMContentLoaded', () => {
   const apiUrl = localStorage.getItem('targetPageId'); // 확인
 
   fetch(apiUrl).then(res => res.text())
-  .then(xmlString => {
-    const xmlDoc = new DOMParser().parseFromString(xmlString,'text/xml');
-    const jsonResult = xmlToJson(xmlDoc);
-    const jsonArr = jsonResult.dbs.db; // 확인,
-    jrr = jsonArr;
+    .then(xmlString => {
+      const xmlDoc = new DOMParser().parseFromString(xmlString, 'text/xml');
+      const jsonResult = xmlToJson(xmlDoc);
+      const jsonArr = jsonResult.dbs.db; // 확인,
+      jrr = jsonArr;
 
-    detailPagePrint(jsonArr);
-    shareLink();
-  })
+      detailPagePrint(jsonArr);
+      shareLink();
+    })
 })
 
 // detailPagePrint() - 상세 페이지 출력 메서드
-function detailPagePrint(jsonArr){
+function detailPagePrint(jsonArr) {
   // HTML 요소
   const h3 = document.getElementById('h3');
-  const badge = document.getElementById('badge');  
+  const badge = document.getElementById('badge');
   const tu = document.querySelectorAll('.tu')[0];
   const info_fcltynm = document.getElementById('info_fcltynm');
   const info_prfpdFromTo = document.getElementById('info_prfpdFromTo');
@@ -40,7 +40,7 @@ function detailPagePrint(jsonArr){
 
   let { bgc, bdColor, txtColor } = colorSet(jsonArr.genrenm["#text"]);
 
-  badge.style.backgroundColor = bgc; 
+  badge.style.backgroundColor = bgc;
   badge.style.borderColor = bdColor;
   badge.style.color = txtColor;
 
@@ -61,11 +61,11 @@ function detailPagePrint(jsonArr){
   let periodText = info_prfpdFromTo.textContent;
   const parts = periodText.split('~').map(s => s.trim());
   from = parts[0] || '';
-  to   = parts[1] || '';
-    // Date 객체로 변환 (YYYY.MM.DD → YYYY-MM-DD)
-  fromDate = new Date(from.replace(/\./g,'-'));
-  toDate   = new Date(to.replace(/\./g,'-'));
-  
+  to = parts[1] || '';
+  // Date 객체로 변환 (YYYY.MM.DD → YYYY-MM-DD)
+  fromDate = new Date(from.replace(/\./g, '-'));
+  toDate = new Date(to.replace(/\./g, '-'));
+
   // 공연기간(fromDate~toDate) 내의 날짜 문자열 목록 만들기
   const perfDates = new Set();
   {
@@ -86,7 +86,7 @@ function detailPagePrint(jsonArr){
       const dstr = $.datepicker.formatDate("yy-mm-dd", date);
       const isPerf = perfDates.has(dstr);
       // true - 클릭 가능 여부, 
-      return [ true, isPerf ? "perf-date" : "", "" ];
+      return [true, isPerf ? "perf-date" : "", ""];
     }
     // beforeShowDay(date) {
     //   const inRange = date >= fromDate && date <= toDate;
@@ -94,7 +94,7 @@ function detailPagePrint(jsonArr){
     //   // true 는 선택 가능 여부, 해당 기간이면 td 에 클래스 부여
     //   return [ true, inRange ? "in-range" : "", "" ];
     // }
-    
+
   });
   document.getElementById('calendar').style.overflow = 'visible';
 
@@ -108,17 +108,17 @@ function detailPagePrint(jsonArr){
   } else {
     contents[0].innerHTML = `<img src="${imgs['#text']}" width="1200">`;
   }
-  
+
   // 지도 채우기
   // 공연장 이름
   document.querySelector('.name').innerHTML = jsonArr.fcltynm["#text"];
   // 공연장 상세 : API 불러오기
-  fetch(`http://www.kopis.or.kr/openApi/restful/prfplc/${jsonArr.mt10id['#text']}?service=17beea38263f4378901270b9bcdc9ce6`).then(res => res.text()).then(xmlString => {
+  fetch(`http://www.kopis.or.kr/openApi/restful/prfplc/${jsonArr.mt10id['#text']}?service=${authorKey}`).then(res => res.text()).then(xmlString => {
     const xmlDoc = new DOMParser().parseFromString(xmlString, 'text/xml');
     const jsonResult = xmlToJson(xmlDoc);
     const jsonArr = jsonResult.dbs.db;
     placeJSON = jsonArr;
-  
+
     const fields = document.querySelectorAll('.field');
     fields[0].innerHTML = jsonArr.fcltychartr["#text"];
     fields[1].innerHTML = jsonArr.adres["#text"];
@@ -128,7 +128,7 @@ function detailPagePrint(jsonArr){
 
     // 지도 채우기 : 구글 API
     (g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })({
-      key: 'AIzaSyBkJGI8EZC8aQOwPy3I0NpcGcU28qxJdd8',
+      key: '',
       v: "weekly",
       // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
       // Add other bootstrap parameters as needed, using camel case.
@@ -161,7 +161,7 @@ function detailPagePrint(jsonArr){
 }
 
 // Jquery DatePicker 
-$(function() {
+$(function () {
   // 기본 로케일을 한국어로 변경
   $.datepicker.setDefaults({
     dateFormat: 'yy-mm-dd',
@@ -184,7 +184,7 @@ $(function() {
   });
 });
 
-function shareLink(){
+function shareLink() {
   const copyBtn = document.getElementById('copyLink');
 
   copyBtn.addEventListener('click', async (e) => {
@@ -224,7 +224,7 @@ function xmlToJson(xml) {
   let obj = {};
 
   // ELEMENT_NODE
-  if (xml.nodeType === 1) { 
+  if (xml.nodeType === 1) {
     // 속성 처리
     if (xml.attributes.length > 0) {
       // obj라는 JS 객체 안에 @attributes라는 키를 만들고 
@@ -241,12 +241,12 @@ function xmlToJson(xml) {
 
   // 자식 노드가 있으면 재귀
   if (xml.hasChildNodes()) {
-    for(let i = 0; i < xml.childNodes.length; i++) {
+    for (let i = 0; i < xml.childNodes.length; i++) {
       const item = xml.childNodes.item(i);
       const nodeName = item.nodeName;
       const childJson = xmlToJson(item);
       // 공백 텍스트 노드 건너뛰기
-      if (childJson === "") continue;  
+      if (childJson === "") continue;
 
       if (obj[nodeName] === undefined) {
         obj[nodeName] = childJson;
